@@ -32,6 +32,7 @@ class AsyncRedditList extends React.Component {
         />
         <PostList
           posts={this.props.posts}
+          isFetching={this.props.isFetching}
         />
       </View>
     )
