@@ -55,13 +55,15 @@ const styles = StyleSheet.create({
   },
 });
 
-
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators
 function mapStateToProps(state) {
+  // Destructuring assignment
+  // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
   const { selectedSubreddit, postsBySubreddit } = state
   const {
     isFetching,
     lastUpdated,
-    items: posts
+    items: posts //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Assigning_to_new_variable_names
   } = postsBySubreddit[selectedSubreddit] || {
     isFetching: true,
     items: []
