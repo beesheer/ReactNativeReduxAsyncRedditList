@@ -16,6 +16,11 @@ class AsyncRedditList extends React.Component {
     this.handleChange = this.handleChange.bind(this); // Very important to bind to this.
   }
 
+  componentDidMount() {
+    const { dispatch, selectedSubreddit } = this.props
+    dispatch(fetchPostsIfNeeded(selectedSubreddit))
+  }
+
   handleChange(subreddit) {
     this.props.dispatch(selectSubreddit(subreddit));
     this.props.dispatch(fetchPostsIfNeeded(subreddit));
