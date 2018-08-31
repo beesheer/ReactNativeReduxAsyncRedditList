@@ -1,17 +1,38 @@
 import React from 'react'
-import RedditPicker from '../components/RedditPicker';
-import PostList from '../components/PostList';
+import RedditPicker from '../components/RedditPicker'
+import PostList from '../components/PostList'
+import { StyleSheet, View, StatusBar } from 'react-native'
+import {
+  selectSubreddit,
+  fetchPostsIfNeeded,
+  invalidateSubreddit
+} from '../actions'
+import {connect} from 'react-redux'
 
-export default class AsyncRedditList extends React.Component {
+class AsyncRedditList extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleChange = this.handleChange.bind(this); // Very important to bind to this.
+  }
+
+  handleChange(subreddit) {
+    this.props.dispatch(selectSubreddit(subreddit));
+    this.props.dispatch(fetchPostsIfNeeded(subreddit));
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <RedditPicker />
-        <PostList />
+        <StatusBar hidden={true} />
+        <RedditPicker
+          selectedValue={this.props.selectedSubreddit}
+          options={['LeagueOfLegends', 'reactjs', 'dota2']}
+          onChange={this.handleChange} // pass in handler funtion
+        />
+        <PostList
+          posts={this.props.posts}
+        />
       </View>
     )
   }
@@ -27,3 +48,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+function mapStateToProps(state) {
+  const { selectedSubreddit, postsBySubreddit } = state
+  const {
+    isFetching,
+    lastUpdated,
+    items: posts
+  } = postsBySubreddit[selectedSubreddit] || {
+    isFetching: true,
+    items: []
+  }
+
+  return {
+    selectedSubreddit,
+    posts,
+    isFetching,
+    lastUpdated
+  }
+}
+
+export default connect(mapStateToProps)(AsyncRedditList)

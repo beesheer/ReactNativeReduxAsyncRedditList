@@ -5,12 +5,12 @@ import {
   REQUEST_POSTS,
   RECEIVE_POSTS
 } from '../actions'
-import { ResolveOptions } from 'dns';
 
 function selectedSubreddit(state = 'reactjs', action) {
   switch (action.type) {
     case SELECT_SUBREDDIT:
-      return action.selectedSubreddit;
+      console.log(action)
+      return action.subreddit;
     default:
       return state;
   }
