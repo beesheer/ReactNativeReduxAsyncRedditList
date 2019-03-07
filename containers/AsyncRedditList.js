@@ -32,7 +32,7 @@ class AsyncRedditList extends React.Component {
         <StatusBar hidden={true} />
         <RedditPicker
           selectedValue={this.props.selectedSubreddit}
-          options={['LeagueOfLegends', 'reactjs', 'dota2']}
+          options={['LeagueOfLegends', 'reactjs', 'dota2', 'canada', 'all']}
           onChange={this.handleChange} // pass in handler funtion
         />
         <PostList
